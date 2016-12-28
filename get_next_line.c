@@ -6,7 +6,7 @@
 /*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 11:55:49 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/12/28 14:49:22 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2016/12/28 15:37:26 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int get_next_line(const int fd, char **line)
 			return -1;
 		index = ft_strchr(stock, '\n');
 	}
-	free(line);
-	*line = ft_strnew(index -stock);
-	ft_strncpy(*line, stock, index - stock);
+	*line = ft_strsub(stock, 0, index - stock);
+//	*line = ft_strnew(index -stock);
+//	ft_strncpy(*line, stock, index - stock);
 //	ft_putendl(*line);
 	if (!*line)
 		return (-1);
