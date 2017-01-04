@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/27 11:55:49 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/12/28 15:37:26 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/12/05 10:31:28 by ocojeda-          #+#    #+#             */
+/*   Updated: 2017/01/04 15:20:28 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "get_next_line.h"
 
-int	read_to_stock(int fd, char **string)
+int	read_to_buff(int fd, char **string)
 {
 	char	buff[BUFF_SIZE + 1] = {'\n'};
 	int		ret;
@@ -22,7 +22,6 @@ int	read_to_stock(int fd, char **string)
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
-		buff[ret] = '\0';
 		new_string = ft_strjoin(*string, buff);
 		if(!new_string)
 			return -1;
@@ -31,37 +30,33 @@ int	read_to_stock(int fd, char **string)
 	}
 	return ret;
 }
-
 int get_next_line(const int fd, char **line)
 {
-	static char *stock = NULL;
+	static char *buff = NULL;
+	int ret;
 	char *index;
-	int	ret;
 
-	if(!stock && (stock = (char *)ft_memalloc(sizeof(char))) == NULL)
+	if(!buff && (buff = (char *)ft_memalloc(sizeof(char))) == NULL)
 		return -1;
-	index = ft_strchr(stock, '\n');
+	index = ft_strchr(buff, '\n');
 	while(index == NULL)
 	{
-		ret = read_to_stock(fd, &stock);
-		if(ret == 0)
+		ret = read_to_buff(fd, &buff);
+		if (ret == 0)
 		{
-			index = ft_strchr(stock, '\0');
-			if(index == stock)
+			if((index = ft_strchr(buff, '\0')) == buff)
 				return 0;
 		}
-		if(ret < 0)
+		else if(ret < 0)
 			return -1;
-		index = ft_strchr(stock, '\n');
+		else 
+			index = ft_strchr(buff, '\n');
 	}
-	*line = ft_strsub(stock, 0, index - stock);
-//	*line = ft_strnew(index -stock);
-//	ft_strncpy(*line, stock, index - stock);
-//	ft_putendl(*line);
-	if (!*line)
-		return (-1);
-	index = ft_strdup(index + 1);
-	free(stock);
-	stock = index;
-	return (1);
+	*line = ft_strsub(buff, 0 , index - buff);
+	*index = '\0';
+	if(!*line)
+		return -1;
+	free(buff);
+	buff = ft_strdup(++index);
+	return 1;
 }
