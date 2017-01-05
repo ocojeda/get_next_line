@@ -43,12 +43,13 @@ int					get_next_line(const int fd, char **line)
 	index = ft_strchr(buff, '\n');
 	while (index == NULL)
 	{
-		if ((ret = read_to_buff(fd, &buff)) == 0)
+		ret = read_to_buff(fd, &buff);
+		if (ret == 0)
 		{
 			if ((index = ft_strchr(buff, '\0')) == buff)
 				return (0);
 		}
-		else if ((ret = read_to_buff(fd, &buff)) < 0)
+		else if (ret < 0)
 			return (-1);
 		else
 			index = ft_strchr(buff, '\n');
