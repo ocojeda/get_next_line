@@ -6,18 +6,20 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/05 12:37:08 by myernaux         ###   ########.fr       */
+/*   Updated: 2017/01/05 12:50:21 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft/libft.h"
 
 static int			read_to_buff(int fd, char **string)
 {
-	char	buff[BUFF_SIZE + 1] = {'\n'};
+	char	buff[BUFF_SIZE + 1];
 	int		ret;
 	char	*new_string;
 
+	ft_memset(buff, '\0', sizeof(buff));
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
