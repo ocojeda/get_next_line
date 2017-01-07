@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/05 12:50:21 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/07 12:50:25 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int			read_to_buff(int fd, char **string)
 	int		ret;
 	char	*new_string;
 
-	ft_memset(buff, '\0', sizeof(buff));
+	ft_memset(buff, '\n', sizeof(buff));
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
+		buff[ret] = '\0';
 		new_string = ft_strjoin(*string, buff);
 		if (!new_string)
 			return (-1);
