@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/07 12:50:25 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/07 15:29:21 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ int					get_next_line(const int fd, char **line)
 	index = ft_strchr(buff, '\n');
 	while (index == NULL)
 	{
-		ret = read_to_buff(fd, &buff);
-		if (ret == 0)
+		if ((ret = read_to_buff(fd, &buff)) == 0)
 		{
 			if ((index = ft_strchr(buff, '\0')) == buff)
 				return (0);
@@ -55,10 +54,10 @@ int					get_next_line(const int fd, char **line)
 		else
 			index = ft_strchr(buff, '\n');
 	}
-	*index = '\0';
 	if (!(*line = ft_strsub(buff, 0, index - buff)))
 		return (-1);
+	index = ft_strdup(index + 1);
 	free(buff);
-	buff = ft_strdup(++index);
+	buff = index;
 	return (1);
 }
