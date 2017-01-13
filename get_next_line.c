@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/13 16:55:41 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/13 18:48:20 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,22 @@ t_gnl	*check_fd(int fd, t_gnl *first)
 	t_gnl *temp2;
 
 	temp = first;
-	while(temp)
+	while(temp != NULL)
 	{
 		if(fd == temp->fd)
-		{
 			return temp;
-		}
 		temp = temp->next;
 	}
-	if(!temp2->buff && (temp2->buff = (char *)ft_memalloc(sizeof(char))) == NULL)
+	temp = temp2;
+	ft_putendl("capueici");
+	ft_putendl(temp2->buff);
+	temp2->buff = ft_strnew(BUFF_SIZE +1);
+	ft_putendl("capueici");
+	if(!temp2->buff)
 		return NULL;
 	temp2->next = NULL;
 	temp2->fd = fd;
-	temp = temp2;
-	return (temp);
+	return (temp2);
 }
 
 static int			read_to_buff(t_gnl *current)
@@ -51,7 +53,7 @@ static int			read_to_buff(t_gnl *current)
 		if (!new_string)
 			return (-1);
 		free(current->buff);
-		current->buff = new_string;
+		current->buff = ft_strdup(new_string);
 	}
 	free(buff);
 	return (ret);
@@ -68,7 +70,8 @@ int					get_next_line(const int fd, char **line)
 	index = ft_strchr(current->buff, '\n');
 	while (index == NULL)
 	{
-		if ((ret = read_to_buff(current)) == 0)
+		ret = read_to_buff(current);
+		if (ret == 0)
 		{
 			if ((index = ft_strchr(current->buff, '\0')) == current->buff)
 				return (0);
