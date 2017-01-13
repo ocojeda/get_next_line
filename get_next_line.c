@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/13 15:11:24 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/13 16:55:41 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,31 @@ t_gnl	*check_fd(int fd, t_gnl *first)
 		}
 		temp = temp->next;
 	}
+	if(!temp2->buff && (temp2->buff = (char *)ft_memalloc(sizeof(char))) == NULL)
+		return NULL;
+	temp2->next = NULL;
+	temp2->fd = fd;
 	temp = temp2;
-	temp->next = NULL;
-	if(!temp->buff && (temp->buff = (char *)ft_memalloc(sizeof(char))) == NULL)
-			return (NULL);
-	temp->fd = fd;
 	return (temp);
 }
 
-static int			read_to_buff(int fd, char **string)
+static int			read_to_buff(t_gnl *current)
 {
 	char	*buff;
 	int		ret;
 	char	*new_string;
 
-	
 	buff = ft_strnew(BUFF_SIZE + 1);
 	ft_memset(buff, '\n', sizeof(buff));
-	ret = read(fd, buff, BUFF_SIZE);
+	ret = read(current->fd, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
 		buff[ret] = '\0';
-		new_string = ft_strjoin(*string, buff);
+		new_string = ft_strjoin(current->buff, buff);
 		if (!new_string)
 			return (-1);
-		free(*string);
-		*string = new_string;
+		free(current->buff);
+		current->buff = new_string;
 	}
 	free(buff);
 	return (ret);
@@ -64,12 +63,12 @@ int					get_next_line(const int fd, char **line)
 	t_gnl *current;
 	int			ret;
 	char		*index;
-
+	
 	current = check_fd(fd, all);
 	index = ft_strchr(current->buff, '\n');
 	while (index == NULL)
 	{
-		if ((ret = read_to_buff(current->fd, &current->buff)) == 0)
+		if ((ret = read_to_buff(current)) == 0)
 		{
 			if ((index = ft_strchr(current->buff, '\0')) == current->buff)
 				return (0);
