@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/13 18:48:20 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/13 19:18:21 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,26 @@ t_gnl	*check_fd(int fd, t_gnl *first)
 	t_gnl *temp2;
 
 	temp = first;
-	while(temp != NULL)
+	
+	while(temp)
 	{
+		ft_putnbr(fd);
+		ft_putnbr(temp->fd);
 		if(fd == temp->fd)
 			return temp;
 		temp = temp->next;
 	}
-	temp = temp2;
-	ft_putendl("capueici");
-	ft_putendl(temp2->buff);
-	temp2->buff = ft_strnew(BUFF_SIZE +1);
-	ft_putendl("capueici");
-	if(!temp2->buff)
-		return NULL;
-	temp2->next = NULL;
-	temp2->fd = fd;
-	return (temp2);
+	//ft_putendl("capueici");
+	//ft_putnbr(fd);
+	//ft_putendl(temp2->buff);
+	//temp2->buff = ft_strnew(BUFF_SIZE +1);
+	//ft_putendl("capueici");
+	//if(!temp2->buff)
+	//	return NULL;
+	temp->next = NULL;
+	temp->buff = ft_strnew(BUFF_SIZE + 1);
+	temp->fd = fd;
+	return (temp);
 }
 
 static int			read_to_buff(t_gnl *current)
@@ -85,6 +89,6 @@ int					get_next_line(const int fd, char **line)
 		return (-1);
 	index = ft_strdup(index + 1);
 	free(current->buff);
-	current->buff = index;
+	current->buff = ft_strdup(index);
 	return (1);
 }
