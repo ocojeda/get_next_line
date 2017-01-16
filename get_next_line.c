@@ -6,58 +6,47 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/13 19:18:21 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/16 11:52:50 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft/libft.h"
 
-t_gnl	*check_fd(int fd, t_gnl *first)
+static t_list			*check_fd(t_list **file, int fd)
 {
-	t_gnl *temp;
-	t_gnl *temp2;
+	t_list				*tmp;
 
-	temp = first;
-	
-	while(temp)
+	tmp = *file;
+	while (tmp)
 	{
-		ft_putnbr(fd);
-		ft_putnbr(temp->fd);
-		if(fd == temp->fd)
-			return temp;
-		temp = temp->next;
+		if ((int)tmp->content_size == fd)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	//ft_putendl("capueici");
-	//ft_putnbr(fd);
-	//ft_putendl(temp2->buff);
-	//temp2->buff = ft_strnew(BUFF_SIZE +1);
-	//ft_putendl("capueici");
-	//if(!temp2->buff)
-	//	return NULL;
-	temp->next = NULL;
-	temp->buff = ft_strnew(BUFF_SIZE + 1);
-	temp->fd = fd;
-	return (temp);
+	tmp = ft_lstnew("\0", fd);
+	ft_lstadd(file, tmp);
+	tmp = *file;
+	return (tmp);
 }
-
-static int			read_to_buff(t_gnl *current)
+static int			read_to_buff(t_list *current)
 {
 	char	*buff;
 	int		ret;
 	char	*new_string;
+	int fd = current->content_size;
 
 	buff = ft_strnew(BUFF_SIZE + 1);
 	ft_memset(buff, '\n', sizeof(buff));
-	ret = read(current->fd, buff, BUFF_SIZE);
+	ret = read(fd, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
 		buff[ret] = '\0';
-		new_string = ft_strjoin(current->buff, buff);
+		new_string = ft_strjoin(current->content, buff);
 		if (!new_string)
 			return (-1);
-		free(current->buff);
-		current->buff = ft_strdup(new_string);
+		free(current->content);
+		current->content = ft_strdup(new_string);
 	}
 	free(buff);
 	return (ret);
@@ -65,30 +54,30 @@ static int			read_to_buff(t_gnl *current)
 
 int					get_next_line(const int fd, char **line)
 {
-	static t_gnl *all = NULL;
-	t_gnl *current;
+	static t_list *all;
+	t_list *current;
 	int			ret;
 	char		*index;
-	
-	current = check_fd(fd, all);
-	index = ft_strchr(current->buff, '\n');
+
+	current = check_fd(&all, fd);
+	index = ft_strchr(current->content, '\n');
 	while (index == NULL)
 	{
 		ret = read_to_buff(current);
 		if (ret == 0)
 		{
-			if ((index = ft_strchr(current->buff, '\0')) == current->buff)
+			if ((index = ft_strchr(current->content, '\0')) == current->content)
 				return (0);
 		}
 		else if (ret < 0)
 			return (-1);
 		else
-			index = ft_strchr(current->buff, '\n');
+			index = ft_strchr(current->content, '\n');
 	}
-	if (!(*line = ft_strsub(current->buff, 0, index - current->buff)))
+	if (!(*line = ft_strsub(current->content, 0, index - (char *)current->content)))
 		return (-1);
 	index = ft_strdup(index + 1);
-	free(current->buff);
-	current->buff = ft_strdup(index);
+	free(current->content);
+	current->content = ft_strdup(index);
 	return (1);
 }
