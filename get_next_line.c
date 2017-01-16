@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/16 18:14:17 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/16 18:51:05 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int					get_next_line(const int fd, char **line)
 	char *index;
 
 	if(fd < 0 || line == NULL)
-		return -1;
+		return (-1);
 	curr= check_fd(&all, fd);
-	index = ft_strchr((char *)curr->content, '\n');
+	index = ft_strchr(curr->content, '\n');
 	while (index == NULL)
 	{
-		if ((ret = read_to_buff(curr) == 0))
+		if ((ret = read_to_buff(curr)) == 0)
 		{
 			if ((index = ft_strchr(curr->content, '\0')) == curr->content)
 				return (0);
