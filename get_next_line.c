@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/16 17:59:05 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/16 18:14:17 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 static t_list			*check_fd(t_list **file, int fd)
 {
 	t_list				*tmp;
-	t_list				*temp2;
 
 	tmp = *file;
 	while (tmp)
 	{
 		if ((int)tmp->content_size == fd)
 			return (tmp);
-		temp2 = tmp;
 		tmp = tmp->next;
 	}
 	tmp = ft_lstnew("\0", fd);
@@ -48,16 +46,19 @@ static int			read_to_buff(t_list *current)
 		free(current->content);
 		current->content = new_string;
 	}
+	new_string = NULL;
 	free(buff);	
 	return (ret);
 }
 int					get_next_line(const int fd, char **line)
 {
-	int			ret;
 	static t_list		*all;
+	int			ret;
 	t_list	*curr;
 	char *index;
 
+	if(fd < 0 || line == NULL)
+		return -1;
 	curr= check_fd(&all, fd);
 	index = ft_strchr((char *)curr->content, '\n');
 	while (index == NULL)
