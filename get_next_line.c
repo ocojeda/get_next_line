@@ -6,16 +6,16 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/16 19:06:03 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:03:33 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft/libft.h"
 
-static t_list			*check_fd(t_list **file, int fd)
+static t_list	*check_fd(t_list **file, int fd)
 {
-	t_list				*tmp;
+	t_list		*tmp;
 
 	tmp = *file;
 	while (tmp)
@@ -29,7 +29,8 @@ static t_list			*check_fd(t_list **file, int fd)
 	tmp = *file;
 	return (tmp);
 }
-static int			read_to_buff(t_list *current)
+
+static int		read_to_buff(t_list *current)
 {
 	char	*buff;
 	int		ret;
@@ -47,32 +48,37 @@ static int			read_to_buff(t_list *current)
 		current->content = new_string;
 	}
 	new_string = NULL;
-	free(buff);	
+	free(buff);
 	return (ret);
 }
-int					get_next_line(const int fd, char **line)
+
+static int		ft_schr_in_curr(t_list *curr, char *index, int ret)
+{
+	if ((ret = read_to_buff(curr)) == 0)
+	{
+		if ((index = ft_strchr(curr->content, '\0')) == curr->content)
+			return (0);
+	}
+	else if (ret < 0)
+		return (-1);
+	else
+		index = ft_strchr(curr->content, '\n');
+	return (0);
+}
+
+int				get_next_line(const int fd, char **line)
 {
 	static t_list		*all;
-	int			ret;
-	t_list	*curr;
-	char *index;
+	int					ret;
+	t_list				*curr;
+	char				*index;
 
-	if(fd < 0 || line == NULL)
+	if (fd < 0 || line == NULL)
 		return (-1);
-	curr= check_fd(&all, fd);
+	curr = check_fd(&all, fd);
 	index = ft_strchr(curr->content, '\n');
 	while (index == NULL)
-	{
-		if ((ret = read_to_buff(curr)) == 0)
-		{
-			if ((index = ft_strchr(curr->content, '\0')) == curr->content)
-				return (0);
-		}
-		else if (ret < 0)
-			return (-1);
-		else
-			index = ft_strchr(curr->content, '\n');
-	}
+		ft_schr_in_curr(curr, index, ret);
 	if (!(*line = ft_strsub(curr->content, 0, index - (char *)curr->content)))
 		return (-1);
 	index = ft_strdup(index + 1);
