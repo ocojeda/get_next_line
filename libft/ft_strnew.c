@@ -3,29 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/11 13:02:15 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/28 12:30:03 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/06 16:22:24 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:13:57 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+char		*ft_strnew(size_t size)
 {
 	char	*str;
-	size_t	i;
 
-	i = 0;
-	str = (char*)malloc(sizeof(char) * (size + 1));
+	str = (char*)malloc(size + 1);
 	if (str == NULL)
 		return (NULL);
-	while (i <= size)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	str[size] = '\0';
+	ft_memset(str, (int)'\0', size + 1);
 	return (str);
 }

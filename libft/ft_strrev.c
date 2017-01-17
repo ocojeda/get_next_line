@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_islower.c                                       :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/22 09:47:09 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/22 09:48:26 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/14 20:32:20 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:20:22 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_islower(int c)
+void	ft_strrev(char *s)
 {
-	if (c >= 'a' && c <= 'z')
-		return (1);
-	else
-		return (0);
+	char *s_end;
+	char c;
+
+	s_end = s + ft_strlen(s) - 1;
+	while (s < s_end)
+	{
+		c = *s;
+		*s++ = *s_end;
+		*s_end-- = c;
+	}
 }

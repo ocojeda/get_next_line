@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_power.c                                         :+:      :+:    :+:   */
+/*   ft_strtoupper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 14:18:24 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/22 10:46:42 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/14 20:36:00 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:16:27 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_power(int nb, int power)
+char	*ft_strtoupper(char *s)
 {
-	int	i;
-	int	reste;
+	int i;
 
 	i = 0;
-	reste = 1;
-	if (power < 0)
-		return (0);
-	while (i < power)
+	while (s[i])
 	{
-		reste = reste * nb;
+		s[i] = ft_toupper(s[i]);
 		i++;
 	}
-	return (reste);
+	return (s);
 }

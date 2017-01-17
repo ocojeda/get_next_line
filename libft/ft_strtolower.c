@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isodd.c                                         :+:      :+:    :+:   */
+/*   ft_strtolower.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 11:44:00 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/14 11:53:14 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/14 20:38:42 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:04:54 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isodd(int c)
+char	*ft_strtolower(char *s)
 {
-	if ((c % 2) == 0)
-		return (0);
-	else
-		return (1);
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		s[i] = ft_tolower(s[i]);
+		i++;
+	}
+	return (s);
 }

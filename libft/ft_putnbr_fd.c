@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 11:37:45 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/17 14:17:31 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/05 16:37:38 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/23 11:29:25 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int nb;
+	unsigned int nbr;
 
 	if (n < 0)
 	{
 		ft_putchar_fd('-', fd);
-		nb = -n;
+		nbr = -n;
 	}
 	else
-		nb = n;
-	if (nb >= 10)
+		nbr = n;
+	if (nbr >= 10)
 	{
-		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nbr / 10, fd);
+		ft_putnbr_fd(nbr % 10, fd);
 	}
-	ft_putchar_fd((nb % 10) + '0', fd);
+	else
+	{
+		ft_putchar_fd(nbr + '0', fd);
+	}
 }

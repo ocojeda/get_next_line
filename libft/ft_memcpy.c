@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 09:51:21 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/28 16:43:21 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/07 17:06:46 by tfaure            #+#    #+#             */
+/*   Updated: 2016/12/12 16:47:37 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
+	char	*c1;
+	char	*c2;
 
-	i = 0;
-	while (i < n)
-	{
-		((char *)dst)[i] = ((char *)src)[i];
-		i++;
-	}
+	if (n == 0 || dst == src)
+		return (dst);
+	c1 = (char *)dst;
+	c2 = (char *)src;
+	while (--n)
+		*c1++ = *c2++;
+	*c1 = *c2;
 	return (dst);
 }

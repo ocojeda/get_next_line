@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 15:29:23 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/04 11:30:28 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/13 22:40:57 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/13 22:51:58 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
-
-	str = (char *)s;
-	while (*str)
+	while (*s)
 	{
-		if (*str == c)
-			return (str);
-		str++;
+		if (*s == c)
+			return ((char*)s);
+		s++;
 	}
-	if (*str == c)
-		return (str);
+	if (*s == c)
+		return ((char*)s);
 	return (NULL);
 }

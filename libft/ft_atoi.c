@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 11:23:26 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/21 08:32:03 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/05 19:29:18 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 22:36:14 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,28 @@
 
 int		ft_atoi(const char *str)
 {
-	int	negative;
-	int	i;
-	int	nb;
+	int i;
+	int nbr;
+	int negative;
 
-	nb = 0;
+	nbr = 0;
+	negative = 0;
 	i = 0;
-	negative = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	while ((str[i] == '\n') || (str[i] == '\t') || (str[i] == '\v') ||
+			(str[i] == ' ') || (str[i] == '\f') || (str[i] == '\r'))
 		i++;
 	if (str[i] == '-')
-	{
-		negative = -1;
-		i++;
-	}
-	else if (str[i] == '+')
+		negative = 1;
+	if (str[i] == '+' || str[i] == '-')
 		i++;
 	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
-		nb = nb * 10 + str[i++] - '0';
-	return (negative * nb);
+	{
+		nbr *= 10;
+		nbr += (int)str[i] - '0';
+		i++;
+	}
+	if (negative == 1)
+		return (-nbr);
+	else
+		return (nbr);
 }

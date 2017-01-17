@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 14:34:55 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/22 09:45:31 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/05 21:00:36 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/05 21:07:01 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 int		ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
-	{
+	int min;
+	int max;
+
+	min = '0';
+	max = '9';
+	if (c >= min && c <= max)
 		return (1);
-	}
-	return (0);
+	else
+		return (0);
 }

@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 10:50:26 by myernaux          #+#    #+#             */
-/*   Updated: 2016/11/29 09:08:21 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/05 21:52:23 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/07 22:30:28 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(char const *big, char const *little)
+char	*ft_strstr(const char *big, const char *little)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	int		c;
 
 	i = 0;
-	if (!*little)
-		return ((char*)big);
+	c = 0;
+	if (little[0] == '\0')
+		return (char*)(big);
 	while (big[i] != '\0')
 	{
-		j = 0;
-		while (little[j] == big[i + j])
+		j = i;
+		c = 0;
+		while (big[j] == little[c])
 		{
-			if (little[1 + j] == '\0')
-			{
-				return ((char*)big + i);
-			}
 			j++;
+			c++;
+			if (little[c] == '\0')
+				return (char*)(&big[i]);
 		}
 		i++;
 	}

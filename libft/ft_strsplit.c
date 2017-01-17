@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 08:05:25 by myernaux          #+#    #+#             */
-/*   Updated: 2016/12/08 09:18:17 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/11 14:45:11 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/17 13:03:30 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_word(char const *s, char c)
+static int	wordsnbr(const char *s, char c)
 {
-	int		word;
+	int		i;
 	int		j;
 
-	word = 0;
 	j = 0;
+	i = 0;
 	while (*s != '\0')
 	{
 		if (j == 1 && *s == c)
@@ -26,14 +26,14 @@ static int		ft_word(char const *s, char c)
 		if (j == 0 && *s != c)
 		{
 			j = 1;
-			word++;
+			i++;
 		}
 		s++;
 	}
-	return (word);
+	return (i);
 }
 
-static int		ft_srchlen(const char *s, char c)
+static int	wordslen(const char *s, char c)
 {
 	int		len;
 
@@ -46,26 +46,27 @@ static int		ft_srchlen(const char *s, char c)
 	return (len);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char		**ft_strsplit(char const *s, char c)
 {
 	char	**str;
-	int		nb;
+	int		words;
 	int		i;
-	int		len;
 
-	if (!s || !c)
-		return (NULL);
-	nb = ft_word((char const*)s, c);
-	if ((str = (char**)malloc(sizeof(*str) * (nb + 1))) == NULL)
+	if (!c || !s)
 		return (NULL);
 	i = 0;
-	while (nb-- > 0)
+	words = wordsnbr((const char*)s, c);
+	str = (char **)malloc(sizeof(*str) * (wordsnbr((const char *)s, c) + 1));
+	if (!str)
+		return (NULL);
+	while (words--)
 	{
 		while (*s == c && *s != '\0')
 			s++;
-		len = ft_srchlen((char const*)s, c);
-		str[i] = ft_strsub((char const*)s, 0, len);
-		s = s + len;
+		str[i] = ft_strsub((const char*)s, 0, wordslen((const char *)s, c));
+		if (str[i] == NULL)
+			return (NULL);
+		s = s + wordslen((const char *)s, c);
 		i++;
 	}
 	str[i] = NULL;

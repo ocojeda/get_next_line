@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfaure <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 13:31:46 by myernaux          #+#    #+#             */
-/*   Updated: 2016/12/06 12:55:41 by myernaux         ###   ########.fr       */
+/*   Created: 2016/11/05 21:52:23 by tfaure            #+#    #+#             */
+/*   Updated: 2016/11/14 21:20:59 by tfaure           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *b, const char *l, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	n;
+	size_t	len2;
 
-	if (*l == '\0')
-		return ((char *)b);
-	n = ft_strlen(l);
-	while (*b != '\0' && len >= n)
+	if (*little == '\0')
+		return ((char *)big);
+	len2 = ft_strlen(little);
+	while (*big != '\0' && len-- >= len2)
 	{
-		if (ft_strncmp(b, l, n) == 0)
-			return ((char *)b);
-		b++;
-		len--;
+		if (*big == *little && ft_memcmp(big, little, len2) == 0)
+			return ((char *)big);
+		big++;
 	}
 	return (NULL);
 }
