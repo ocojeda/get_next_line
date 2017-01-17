@@ -3,34 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/13 14:27:15 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/13 10:00:08 by myernaux         ###   ########.fr       */
+/*   Created: 2017/01/17 18:35:00 by ocojeda-          #+#    #+#             */
+/*   Updated: 2017/01/17 18:35:09 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "stdio.h"
 
-int		main(int ac, char **av)
+int main (int argc, char **argv)
 {
-	int		fd;
-	int		i;
-	char	*line;
+	int fd;
+	char *line;
+	int i;
 
-	i = 0;
-	if (ac == 2)
-	{
-		if ((fd = open(av[1], O_RDONLY)) < 0)
-			return (0);
-		while (i < 7)
+	if(argc == 2)
+	{	
+		if((fd = (open(argv[1], O_RDONLY))) == -1)
+			return 0;
+		while(get_next_line(fd, &line))
 		{
-			get_next_line(fd, &line);
-			printf("%s\n", line);
-			i++;
+			ft_putendl(line);
+			free(line);
 		}
 		close(fd);
 	}
-	return (0);
+	return 0;
 }
