@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/17 13:19:33 by myernaux         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:50:11 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ static int		read_to_buff(t_list *current)
 	return (ret);
 }
 
+static int		ft_endgnl(t_list *curr, char *index)
+{
+	index = ft_strdup(index + 1);
+	free(curr->content);
+	curr->content = index;
+	return (1);
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	static t_list		*all;
@@ -77,8 +85,5 @@ int				get_next_line(const int fd, char **line)
 	}
 	if (!(*line = ft_strsub(curr->content, 0, index - (char *)curr->content)))
 		return (-1);
-	index = ft_strdup(index + 1);
-	free(curr->content);
-	curr->content = index;
-	return (1);
+	return (ft_endgnl(curr, index));
 }
