@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 14:44:28 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/22 17:07:19 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/11 10:28:55 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/24 08:45:29 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*new_str;
 	int		i;
+	int		n;
+	char	*str;
 
-	if (!s)
+	i = 0;
+	if (!s || !f)
 		return (NULL);
-	new_str = ft_strnew(ft_strlen(s));
-	if (!new_str)
+	n = ft_strlen((char*)s);
+	if ((str = (char*)malloc(sizeof(char) * (n + 1))) == NULL)
 		return (NULL);
-	i = -1;
-	while (*(s + ++i))
-		*(new_str + i) = f(i, *(s + i));
-	return (new_str);
+	while (s[i] != '\0')
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

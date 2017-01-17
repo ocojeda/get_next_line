@@ -3,38 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 18:06:03 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/22 09:49:35 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/15 11:47:33 by myernaux          #+#    #+#             */
+/*   Updated: 2016/12/06 10:14:32 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list*))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*result;
-	t_list	*tmp;
-	t_list	*tmp2;
+	t_list		*new;
+	t_list		*list;
 
-	if (!lst || !f)
+	if (!lst)
 		return (NULL);
-	tmp2 = f(lst);
-	result = ft_lstnew(tmp2->content, tmp2->content_size);
-	if (result)
+	list = f(lst);
+	new = list;
+	while (lst->next)
 	{
-		tmp = result;
 		lst = lst->next;
-		while (lst)
+		if (!(list->next = f(lst)))
 		{
-			tmp2 = f(lst);
-			tmp->next = ft_lstnew(tmp2->content, tmp2->content_size);
-			if (tmp->next == NULL)
-				return (NULL);
-			tmp = tmp->next;
-			lst = lst->next;
+			free(list->next);
+			return (NULL);
 		}
+		list = list->next;
 	}
-	return (result);
+	return (new);
 }

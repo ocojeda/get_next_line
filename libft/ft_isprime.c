@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprime.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/24 17:06:01 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/24 17:55:39 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/14 12:01:07 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/14 14:06:16 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprime(int nbr)
+int		ft_isprime(int c)
 {
-	int i;
+	int	i;
 
-	i = 2;
-	if (!nbr)
+	if (c < 2)
 		return (0);
-	while (i < nbr)
+	i = 2;
+	while (i * i <= c)
 	{
-		if (nbr % i == 0)
+		if (c % i == 0)
 			return (0);
 		i++;
 	}

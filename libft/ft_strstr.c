@@ -3,35 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 02:21:46 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/10 03:50:40 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/07 10:50:26 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/29 09:08:21 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *big, const char *little)
+char	*ft_strstr(char const *big, char const *little)
 {
 	int i;
-	int e;
-	int flag;
+	int j;
 
 	i = 0;
-	flag = 0;
-	e = ft_strlen(little);
-	if (e == 0)
-		return ((char *)big);
-	while (big[i])
+	if (!*little)
+		return ((char*)big);
+	while (big[i] != '\0')
 	{
-		while (big[i + flag] == little[flag])
+		j = 0;
+		while (little[j] == big[i + j])
 		{
-			if (flag == e - 1)
-				return (char *)big + i;
-			flag++;
+			if (little[1 + j] == '\0')
+			{
+				return ((char*)big + i);
+			}
+			j++;
 		}
-		flag = 0;
 		i++;
 	}
 	return (NULL);

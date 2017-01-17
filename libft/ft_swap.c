@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/02 12:15:44 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/24 16:58:26 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/14 17:22:42 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/17 12:10:11 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void				ft_swap(int *a, int *b)
+void	ft_swap(int *a, int *b)
 {
-	int swapp;
+	int tmp;
 
-	swapp = *a;
+	tmp = *a;
 	*a = *b;
-	*b = swapp;
+	*b = tmp;
 }

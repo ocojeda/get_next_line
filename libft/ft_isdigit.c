@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 14:05:58 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/20 14:06:31 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/05 14:34:55 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/22 09:45:31 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int		ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
+	{
 		return (1);
+	}
 	return (0);
 }

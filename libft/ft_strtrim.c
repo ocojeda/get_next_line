@@ -3,63 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 17:38:54 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/24 17:45:10 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/11 16:43:09 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/24 11:07:54 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	rm_spaces(char *s)
-{
-	size_t	i;
-	size_t	spaces;
-	size_t	len;
-
-	len = ft_strlen(s);
-	i = 0;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	spaces = i;
-	if (s[i])
-	{
-		i = len - 1;
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		{
-			i--;
-			spaces++;
-		}
-	}
-	return (len - spaces);
-}
-
-char			*ft_strtrim(char const *s)
+char	*ft_strtrim(char const *s)
 {
 	char	*str;
-	size_t	i;
-	size_t	j;
-	size_t	trim_len;
+	int		len;
+	int		i;
+	int		j;
 
-	if (s)
-	{
-		i = 0;
-		j = 0;
-		trim_len = rm_spaces((char *)s);
-		str = (char *)malloc(sizeof(*str) * (trim_len + 1));
-		if (str == NULL)
-			return (NULL);
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-			i++;
-		while (j < trim_len)
-		{
-			str[j] = s[i];
-			j++;
-			i++;
-		}
-		str[j] = '\0';
-		return (str);
-	}
-	return (char *)NULL;
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	while (s[len - 1] == ' ' || s[len - 1] == '\n' || s[len - 1] == '\t')
+		len--;
+	i = -1;
+	while (s[++i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		len--;
+	if (len <= 0)
+		len = 0;
+	if ((str = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);
+	j = -1;
+	while (++j < len)
+		str[j] = s[i++];
+	str[j] = '\0';
+	return (str);
 }

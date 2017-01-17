@@ -3,40 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 03:53:54 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/21 18:29:14 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/07 13:31:46 by myernaux          #+#    #+#             */
+/*   Updated: 2016/12/06 12:55:41 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t n)
+char	*ft_strnstr(const char *b, const char *l, size_t len)
 {
-	size_t	i;
-	char	*big1;
-	char	*big2;
+	size_t	n;
 
-	if (little[0] == '\0')
-		return ((void *)big);
-	while (n-- && *big)
+	if (*l == '\0')
+		return ((char *)b);
+	n = ft_strlen(l);
+	while (*b != '\0' && len >= n)
 	{
-		if (*big == *little)
-		{
-			i = n;
-			big1 = (void *)big + 1;
-			big2 = (void *)little + 1;
-			while (i && *big1 && *big2 && *big1 == *big2)
-			{
-				i--;
-				big1++;
-				big2++;
-			}
-			if (*big2 == '\0')
-				return ((void *)big);
-		}
-		big++;
+		if (ft_strncmp(b, l, n) == 0)
+			return ((char *)b);
+		b++;
+		len--;
 	}
 	return (NULL);
 }

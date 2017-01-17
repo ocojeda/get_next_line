@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/20 14:39:04 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/20 16:56:18 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/15 08:11:18 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/21 12:40:48 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 
 	if ((new = (t_list *)malloc(sizeof(*new))) == NULL)
 		return (NULL);
-	new->next = NULL;
-	if (content != NULL && content_size != 0)
-	{
-		if ((new->content = malloc(content_size)) == NULL)
-			return (NULL);
-		ft_memcpy(new->content, content, content_size);
-		new->content_size = content_size;
-	}
-	else
+	if (content == NULL)
 	{
 		new->content = NULL;
 		new->content_size = 0;
 	}
+	else
+	{
+		if ((new->content = malloc(content_size)) == NULL)
+		{
+			free(new);
+			return (NULL);
+		}
+		ft_memcpy(new->content, content, content_size);
+		new->content_size = content_size;
+	}
+	new->next = NULL;
 	return (new);
 }

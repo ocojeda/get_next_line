@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_factorial.c                                     :+:      :+:    :+:   */
+/*   ft_iscntrl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/24 17:14:15 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/24 17:19:18 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/22 10:07:55 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/22 10:14:58 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_factorial(int nb)
+int		ft_iscntrl(int c)
 {
-	if (nb < 0 || nb > 12)
-		return (0);
-	else if (nb == 0)
+	if (c < 32 || c == 127)
 		return (1);
 	else
-		return (nb * ft_factorial(nb - 1));
+		return (0);
 }

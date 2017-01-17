@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int_max.c                                       :+:      :+:    :+:   */
+/*   ft_ispos.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/24 17:01:15 by ocojeda-          #+#    #+#             */
-/*   Updated: 2016/11/24 17:34:51 by ocojeda-         ###   ########.fr       */
+/*   Created: 2016/11/14 11:38:05 by myernaux          #+#    #+#             */
+/*   Updated: 2016/11/14 11:41:32 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_int_max(int *tab)
+int		ft_ispos(int c)
 {
-	int i;
-	int a;
-
-	i = 0;
-	a = tab[i];
-	if (!tab)
+	if (c >= 0)
+		return (1);
+	else
 		return (0);
-	while (tab[i])
-	{
-		if (a < tab[i])
-		{
-			a = tab[i];
-			i = 0;
-		}
-		i++;
-	}
-	return (a);
 }
