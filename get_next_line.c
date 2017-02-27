@@ -6,7 +6,7 @@
 /*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/01/17 13:50:11 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:19:00 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static t_list	*check_fd(t_list **file, int fd)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	tmp = ft_lstnew("\0", fd);
+	if (!(tmp = ft_lstnew("\0", fd)))
+		return (NULL);
 	ft_lstadd(file, tmp);
 	tmp = *file;
 	return (tmp);
@@ -36,7 +37,8 @@ static int		read_to_buff(t_list *current)
 	int		ret;
 	char	*new_string;
 
-	buff = ft_strnew(BUFF_SIZE + 1);
+	if (!(buff = ft_strnew(BUFF_SIZE + 1)))
+		return (-1);
 	ret = read(current->content_size, buff, BUFF_SIZE);
 	if (ret > 0)
 	{
@@ -55,7 +57,10 @@ static int		read_to_buff(t_list *current)
 static int		ft_endgnl(t_list *curr, char *index)
 {
 	index = ft_strdup(index + 1);
-	free(curr->content);
+	if (index == NULL)
+		return (-1);
+	if (curr->content)
+		free(curr->content);
 	curr->content = index;
 	return (1);
 }
@@ -69,7 +74,8 @@ int				get_next_line(const int fd, char **line)
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	curr = check_fd(&all, fd);
+	if (!(curr = check_fd(&all, fd)))
+		return (-1);
 	index = ft_strchr(curr->content, '\n');
 	while (index == NULL)
 	{
