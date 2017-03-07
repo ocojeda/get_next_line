@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myernaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/13 14:24:46 by myernaux          #+#    #+#             */
-/*   Updated: 2017/02/27 13:19:00 by ocojeda-         ###   ########.fr       */
+/*   Created: 2017/03/01 15:21:29 by ocojeda-          #+#    #+#             */
+/*   Updated: 2017/03/01 17:35:58 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static int		read_to_buff(t_list *current)
 		buff[ret] = '\0';
 		new_string = ft_strjoin(current->content, buff);
 		if (!new_string)
+		{
+			free(buff);
 			return (-1);
+		}
 		free(current->content);
 		current->content = new_string;
 	}
@@ -72,7 +75,7 @@ int				get_next_line(const int fd, char **line)
 	t_list				*curr;
 	char				*index;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || line == NULL || BUFF_SIZE <= 0)
 		return (-1);
 	if (!(curr = check_fd(&all, fd)))
 		return (-1);
