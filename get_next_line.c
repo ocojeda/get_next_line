@@ -6,12 +6,11 @@
 /*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 15:21:29 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/03/01 17:35:58 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:36:23 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/libft.h"
 
 static t_list	*check_fd(t_list **file, int fd)
 {
@@ -52,6 +51,8 @@ static int		read_to_buff(t_list *current)
 		free(current->content);
 		current->content = new_string;
 	}
+	if (ret < 0)
+		return (-1);
 	new_string = NULL;
 	free(buff);
 	return (ret);
