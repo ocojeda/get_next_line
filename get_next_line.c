@@ -6,7 +6,7 @@
 /*   By: ocojeda- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 15:21:29 by ocojeda-          #+#    #+#             */
-/*   Updated: 2017/03/10 13:36:23 by ocojeda-         ###   ########.fr       */
+/*   Updated: 2017/04/17 15:32:55 by myernaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				get_next_line(const int fd, char **line)
 	t_list				*curr;
 	char				*index;
 
-	if (fd < 0 || line == NULL || BUFF_SIZE <= 0)
+	if (fd < 0 || line == NULL || BUFF_SIZE <= 0 || fd > 20556)
 		return (-1);
 	if (!(curr = check_fd(&all, fd)))
 		return (-1);
