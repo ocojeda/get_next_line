@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfaure <tfaure@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ocojeda- <ocojeda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/13 15:00:28 by tfaure            #+#    #+#             */
-/*   Updated: 2017/04/17 17:23:35 by tfaure           ###   ########.fr       */
+/*   Created: 2016/12/13 15:00:28 by ocojeda-          #+#    #+#             */
+/*   Updated: 2017/05/04 20:21:18 by ocojeda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "unistd.h"
 # include "stdlib.h"
 
-# define BUFF_SIZE 100000000
+# define BUFF_SIZE 100
+# define FD_MAX 200000000
 
 int		get_next_line(const int fd, char **line);
 
